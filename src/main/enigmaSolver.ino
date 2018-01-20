@@ -1,31 +1,75 @@
-#define C  262
-#define C# 277
-#define D  294
-#define D# 311
-#define E  330
-#define F  349
-#define F# 370
-#define G  392
-#define G# 415
-#define A  440
-#define A# 466
-#define B  494
-
-
 void circuit(){//A2
   
 }
 
-void dj(char music[]){//A3 A valider
+void dj(String strMusic){//A3 A valider
+  const char* music =strMusic.c_str();
   int note;
   for (int k=0; k<strlen(music);k++){
-    note = null;
-    note = music[k];
-    if(k < strlen(music) && music[k+1]=="#"){
-      note = note+"#";
-      k++;
+    switch (music[k]) {
+      case 'C':
+      if(k < strlen(music) && music[k+1]=='#'){
+        note = 277;
+        k++;
+      }
+      else{
+        note = 262;
+      }
+      break;
+      
+      case 'D':
+      if(k < strlen(music) && music[k+1]=='#'){
+        note = 311;
+        k++;
+      }
+      else{
+        note=294;
+      }
+      break;
+      
+      case 'E':
+      note =330;
+      break;
+      
+      case 'F':
+      if(k < strlen(music) && music[k+1]=='#'){
+        note = 370 ;
+        k++;
+      }
+      else{
+        note=349;
+      }
+      break;
+      
+      case 'G':
+      if(k < strlen(music) && music[k+1]=='#'){
+        note = 415;
+        k++;
+      }
+      else{
+        note=392;
+      }
+      break;
+      
+      case 'A':
+      if(k < strlen(music) && music[k+1]=='#'){
+        note = 466;
+        k++;
+      }
+      else{
+        note=440;
+      }
+      break;
+      
+      case 'B':
+        note = 494;
+      break;
+      
+      default:Serial.print("!!!!!!!!!!!!Error in note !!!!!!!!!!!!\n");
+      // statements
     }
-    tone(PIN_BUZZER, note);
+    tone(PIN_BUZZER, note,167);
+    delay(187);//loose time at the last, minor problem
   }
 }
 
@@ -65,7 +109,7 @@ String magneton(){
   return "porte"+numPorte;
 }
 
-String memory(enonce){//ultra HARDCORE
+String memory(String enonce){//ultra HARDCORE
   
 }
 
