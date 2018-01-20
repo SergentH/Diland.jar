@@ -6,23 +6,33 @@
 SPIClass SPI_3(PC12, PC11, PC10);
 WiFiClass WiFi(&SPI_3, PE0, PE1, PE8, PB13);
 
+char buf[100];
+
 void callback(char* topic, byte* payload, unsigned int length) {
+  
   /*Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");*/
+  memset (buf, 0, sizeof (buf));
   for (int i=0;i<length;i++) {
     Serial.print((char)payload[i]);
+    buf[i]=(char)payload[i];
   }
   Serial.println();
 }
+
+
+char* return_response()
+{
+  return buf;
+}
+
 
 WiFiClient wifiClient;
 char ssid[] = "24HDUCODE";
 char pass[] = "2018#24hcode!";
 int status = WL_IDLE_STATUS;
 PubSubClient client("24hducode.spc5studio.com", 1883, callback, wifiClient);
-
-
 
 void setup_wifi()
 {
@@ -66,7 +76,6 @@ void setup_wifi()
     Serial.println("Will reset and try again...");
     abort();
   }
-
 }
 
 
@@ -80,8 +89,11 @@ void send_message(const char* message)
     }
 }
 
+
 void loop_wifi(){
+  
   Serial.println("loop");
   client.loop();
+    
 }
 

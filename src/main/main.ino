@@ -6,7 +6,10 @@ void setup() {
   send_message("A1:Hello 24h du code!");
 }
 
+String response;
 
 void loop() {
   loop_wifi();
+  response = return_response();
+  Serial.println(response);
 }
