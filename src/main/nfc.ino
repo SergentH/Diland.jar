@@ -136,7 +136,6 @@ void loop_nfc()
     TagDetected = false;
       
 
-    status = NDEF_WriteURI(&url);
       
     //delay(500);
       

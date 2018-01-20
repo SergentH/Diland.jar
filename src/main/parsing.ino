@@ -1,7 +1,6 @@
 /*
     Parser for the data received by the NFC reader.
 */
-/*
 const char* parsing(char *rawdata){ 
     const static String sep(":");
 
@@ -9,7 +8,7 @@ const char* parsing(char *rawdata){
     String args[4];
     char *token;
     String ret;
-
+    Serial.println("Début parsing");
     // Parsing data
     token = strtok(rawdata, sep.c_str()); 
     do{
@@ -27,7 +26,7 @@ const char* parsing(char *rawdata){
 
     // Selecting which enigma to solve
     ret = String(args[0] + sep);
-    if(strcmp("circuit", args[1].c_str()) == 0){//A2 
+    if(strcmp("Circuit", args[1].c_str()) == 0){//A2 
         ret += args[2]; 
     } 
     else if(strcmp("dj", args[1].c_str()) == 0){//A3
@@ -57,11 +56,12 @@ const char* parsing(char *rawdata){
     else if(strcmp("victoire", args[1].c_str()) == 0){//11 
         Serial.println("Victory!");
         victory(); /* Never returning function ? */
-   /* } 
+    } 
     else{
         Serial.println("Error: unknown enigma!");
         return NULL;
     }
-
+    Serial.print("Envoie au serveur de :");
+    Serial.println(ret);
     return ret.c_str();
-} */
+} 
