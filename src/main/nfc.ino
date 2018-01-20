@@ -271,12 +271,10 @@ char* loop_nfc()
   {       
     TagDetected = false;
       
-
     status = NDEF_WriteURI(&url);
       
     delay(500);
       
-        
       memset(url.Information,'\0',400); /*Clear url buffer before reading*/
         
       if (TagType == TRACK_NFCTYPE1)
