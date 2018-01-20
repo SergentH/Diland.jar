@@ -5,5 +5,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  loop_nfc();
+  //loop_nfc();
+  Serial.println(loop_nfc());
 }

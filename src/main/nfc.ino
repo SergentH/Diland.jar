@@ -149,7 +149,7 @@ void setup_nfc() {
 
 /* Loop ----------------------------------------------------------------------*/
 
-void loop_nfc()
+char* loop_nfc()
 {
   devicemode = PCD;
     
@@ -271,23 +271,11 @@ void loop_nfc()
   {       
     TagDetected = false;
       
-    /* Fill the structure of the NDEF URI */
-    strcpy(url.Information,"ST website for near field communication");
-    strcpy(url.protocol,"http://");
-    strcpy(url.URI_Message,"st.com/st25");
 
     status = NDEF_WriteURI(&url);
       
     delay(500);
       
-    if(status == RESULTOK) /*---if URI write passed----------*/
-    {
-      status = ERRORCODE_GENERIC;
-        
-      snprintf( dataOut, 256, "\r\n\r\n--------------------\r\n*****URI Writer*****\r\n--------------------\r\nURI Information written successfully on the tag: \r\n     URI Information: [%s], \r\n     URI Protocol: [%s] ,  \r\n     URI Message: [%s]", (char *)url.Information, (char *)url.protocol, (char *)url.URI_Message );
-      SerialPort.print( dataOut );
-
-      digitalWrite(X_NUCLEO_NFC03A1_LED3, HIGH);
         
       memset(url.Information,'\0',400); /*Clear url buffer before reading*/
         
@@ -322,11 +310,11 @@ void loop_nfc()
             snprintf( dataOut, 256, "\r\n\r\n--------------------\r\n*****URI Reader*****\r\n--------------------\r\nURI Information read successfully from the tag: \r\n     URI Information: [%s], \r\n     URI Protocol: [%s] ,  \r\n     URI Message: [%s]", (char *)url.Information, (char *)url.protocol, (char *)url.URI_Message );
               
             SerialPort.print( dataOut );
-
-            //digitalWrite(X_NUCLEO_NFC03A1_LED4, HIGH);
+            digitalWrite(X_NUCLEO_NFC03A1_LED3, HIGH);
+            return url.URI_Message;
           }
         }
       }
-    }
-  }  
+  }
+  return ""; 
 }
