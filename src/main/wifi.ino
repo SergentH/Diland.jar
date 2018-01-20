@@ -84,18 +84,26 @@ void setup_wifi()
 
 void send_message(const char* message)
 {
-  if (client.publish("24hcode/teamF/284k0/device2broker",message)) {
-      Serial.println("Publish ok");
-    }
-    else {
+  while(client.publish("24hcode/teamF/284k0/device2broker",message)==0) {
       Serial.println("Publish failed");
-    }
+  }
+  Serial.println("Publish Ok");
+}
+
+void waitResponseServer(){
+  Serial.print("Réponce serveur : ");
+  while(response!="OK"){
+    loop_wifi();
+    response = return_response();
+  }
+  Serial.println(response);
+  clear_response();
+  response="null";
 }
 
 
 void loop_wifi(){
   
-  Serial.println("loop");
   client.loop();
     
 }
