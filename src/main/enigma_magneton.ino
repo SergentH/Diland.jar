@@ -1,0 +1,2 @@
+String magneton(String enonce){
+}

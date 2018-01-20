@@ -1,0 +1,3 @@
+String crypto(String enonce){
+}
+

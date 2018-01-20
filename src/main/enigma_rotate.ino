@@ -1,0 +1,2 @@
+String rotate(String enonce){
+}

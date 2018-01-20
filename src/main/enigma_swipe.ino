@@ -1,0 +1,3 @@
+String swipe(String enonce){
+}
+
