@@ -1,45 +1,3 @@
-/**
- ******************************************************************************
- * @file    X_NUCLEO_NFC03A1_HelloWorld.ino
- * @author  AST
- * @version V1.0.0
- * @date    6 December 2017
- * @brief   Arduino test application for the STMicrolectronics X-NUCLEO-NFC03A1
- *          NFC reader/writer expansion board.
- *          This application makes use of C++ classes obtained from the C
- *          components' drivers.
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *   1. Redistributions of source code must retain the above copyright notice,
- *      this list of conditions and the following disclaimer.
- *   2. Redistributions in binary form must reproduce the above copyright notice,
- *      this list of conditions and the following disclaimer in the documentation
- *      and/or other materials provided with the distribution.
- *   3. Neither the name of STMicroelectronics nor the names of its contributors
- *      may be used to endorse or promote products derived from this software
- *      without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- ******************************************************************************
- */
-
-
-/*add test*/
 
 /* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
@@ -62,14 +20,6 @@
 
 /* Exported define -----------------------------------------------------------*/
 #define BULK_MAX_PACKET_SIZE            0x00000040
-
-/* Regarding board antenna (and matching) appropriate 
-value may be modified to optimized RF performances */
-/* Analogue configuration register
- ARConfigB  bits  7:4 MOD_INDEX Modulation index to modulator
-                      3:0 RX_AMP_GAIN Defines receiver amplifier gain
-For type A you can also adjust the Timer Window
-*/
 
 /******************  PICC  ******************/
 /* ISO14443A */
@@ -119,6 +69,11 @@ static char dataOut[256];
 #define X_NUCLEO_NFC03A1_LED3 A4
 //#define X_NUCLEO_NFC03A1_LED4 D4
 
+char* nfc_data;
+
+boolean led2 = false;
+boolean led3 = false;
+
 void setup_nfc() {
   // 95HF HW Init
   ConfigManager_HWInit();
@@ -136,10 +91,6 @@ void setup_nfc() {
 //  pinMode(X_NUCLEO_NFC03A1_LED4, OUTPUT);
   
   // Configure USB serial interface
-  SerialPort.begin(9600);
-  
-  SerialPort.print("\r\n\r\n---------------------------------------\r\n******Welcome to x-nucleo-nfc03a1 demo******\r\n----------------------------------------");
-  SerialPort.print("\r\n\r\nPlease bring an NFC tag to the board vicinity and Press User Button B1 on the board to start URI Writer/Reader demo on the tag");
   
   terminal_msg_flag = true;
 
@@ -149,151 +100,51 @@ void setup_nfc() {
 
 /* Loop ----------------------------------------------------------------------*/
 
-char* loop_nfc()
+int statusNFC(){
+  if(led3){
+    return 3;
+  }
+  if(led2){
+    return 2;
+  }
+  return 0;
+}
+
+void loop_nfc()
 {
   devicemode = PCD;
     
   /* Scan to find if there is a tag */
-  TagType = ConfigManager_TagHunting(TRACK_ALL);
-    
-  switch(TagType)
-  {
-    case TRACK_NFCTYPE1:
-    {
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE1 NFC tag detected nearby");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-        
-    }
-    break;
-    case TRACK_NFCTYPE2:
-    { 
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-        
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE2 NFC tag detected nearby");
-        
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-    }
-    break;
-      
-    case TRACK_NFCTYPE3:
-    {
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-          
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE3 NFC tag detected nearby");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-    }
-    break;
-      
-    case TRACK_NFCTYPE4A:
-    {
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-          
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE4A NFC tag detected nearby");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-    }
-    break;
-      
-    case TRACK_NFCTYPE4B:
-    {
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-          
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE4B NFC tag detected nearby");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-    }
-    break;
-
-    case TRACK_NFCTYPE5:
-    {
-      TagDetected = true;
-        
-      if(terminal_msg_flag == true )
-      {
-        terminal_msg_flag = false ;
-          
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nTRACK_NFCTYPE5 NFC tag detected nearby");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
-      }
-    }
-    break;
-      
-    default:
-    {
-      TagDetected = false;
-      
-      if(terminal_msg_flag == false)
-      {
-        terminal_msg_flag = true ;
-        /*---HT UI msg----------*/
-        SerialPort.print( "\r\n\r\nCurrently there is no NFC tag in the vicinity");
-        digitalWrite(X_NUCLEO_NFC03A1_LED2, LOW);
-        digitalWrite(X_NUCLEO_NFC03A1_LED3, LOW);
-       // digitalWrite(X_NUCLEO_NFC03A1_LED4, LOW);
-      }
-    }
-    break;
+  TagType = ConfigManager_TagHunting(TRACK_NFCTYPE2);
+  if(TagType == TRACK_NFCTYPE2){
+    digitalWrite(X_NUCLEO_NFC03A1_LED2, HIGH);
+    led2 = true;
+    TagDetected = true;
+  }else{
+    digitalWrite(X_NUCLEO_NFC03A1_LED2, LOW);
+    led2 =false;
+    digitalWrite(X_NUCLEO_NFC03A1_LED3, LOW);
+    led3=false;
+    TagDetected = false;
   }
+  
 
-  delay(300);
+  //delay(300);
     
   if (TagDetected == true)
   {       
     TagDetected = false;
       
+
     status = NDEF_WriteURI(&url);
       
-    delay(500);
+    //delay(500);
       
       memset(url.Information,'\0',400); /*Clear url buffer before reading*/
-        
-      if (TagType == TRACK_NFCTYPE1)
-      {
-        status = PCDNFCT1_ReadNDEF();
-      } else if (TagType == TRACK_NFCTYPE2)
-      {
-        status = PCDNFCT2_ReadNDEF();
-      } else if (TagType == TRACK_NFCTYPE3)
-      {
-        status = PCDNFCT3_ReadNDEF();
-      } else if (TagType == TRACK_NFCTYPE4A || TagType == TRACK_NFCTYPE4B)
-      {
-        status = PCDNFCT4_ReadNDEF();
-      } else if (TagType == TRACK_NFCTYPE5)
-      {
-        status = PCDNFCT5_ReadNDEF();
-      }
-        
+
+
+      status = PCDNFCT2_ReadNDEF();
+  
       if ( status == RESULTOK )
       {
         status = ERRORCODE_GENERIC;
@@ -305,14 +156,18 @@ char* loop_nfc()
         {
           if (NDEF_ReadURI(&RecordStruct, &url)==RESULTOK) /*---if URI read passed---*/
           {
-            snprintf( dataOut, 256, "\r\n\r\n--------------------\r\n*****URI Reader*****\r\n--------------------\r\nURI Information read successfully from the tag: \r\n     URI Information: [%s], \r\n     URI Protocol: [%s] ,  \r\n     URI Message: [%s]", (char *)url.Information, (char *)url.protocol, (char *)url.URI_Message );
-              
-            SerialPort.print( dataOut );
             digitalWrite(X_NUCLEO_NFC03A1_LED3, HIGH);
-            return url.URI_Message;
+            led3 = true;
+            nfc_data = url.URI_Message;
           }
         }
-      }
-  }
-  return ""; 
+     }
+  } 
 }
+
+char* getNfcData(){
+  return nfc_data;
+}
+
+
+    //status = NDEF_WriteURI(&url);
