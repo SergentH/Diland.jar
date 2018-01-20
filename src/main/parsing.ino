@@ -1,9 +1,7 @@
 String parsing(char information[]){
   String theme,id,enonce,key;//key it's for the A7 SpyDj
-  String crypto, spydj;
   char[] information;
   int i=0;
-  byte size = Serial.readBytes(input, INPUT_SIZE);
   // Read each command pair 
   char* parse = strtok(information, ":");
   while (information != NULL){
