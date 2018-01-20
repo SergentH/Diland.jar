@@ -46,7 +46,7 @@ void reconnect() {
 }
 
 void setup_wifi() {
-  Serial.begin(57600);
+  
    client.setServer("24hducode.spc5studio.com",1883); 
    client.setCallback(callback);
 }
