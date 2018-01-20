@@ -1,67 +1,73 @@
-String parsing(char information[]){ 
-  String theme,id,enonce,key,porte;//key it's for the A7 SpyDj 
-  char[] information; 
-  int i=0; 
-  // Read each command pair  
-  char* parse = strtok(information, ":"); 
-  while (information != NULL){ 
-   // printf ("%s\n",pch); 
-   if (i=0){ 
-    theme = strtok (NULL, ":"); 
-    i++; 
-   } 
-   else if (i=1){ 
-    id = strtok (NULL, ":"); 
-    i++; 
-   } 
-   else if (i=2){ 
-    enonce = strtok (NULL, ":"); 
-    i++; 
-   } 
-   else if (i=3){//Here, if it's A7 (spyDj) 
-    key = strtok (NULL, ":"); 
-   } 
-   else{ 
-    Serial.print("Information is longer than 4 data"); 
-   } 
-  } 
-    
-  if(strcmp("circuit", theme) == 0){//A2 
-    circuit(); 
-    return id+":"+enonce; 
-  } 
-  if(strcmp("dj", theme) == 0){//A3 
-    dj(); 
-    return id+":"+enonce; 
-  } 
-  if(strcmp("360", theme) == 0){//A4 
-    360(); 
-    return id+":"+enonce; 
-  } 
-  if(strcmp("crypto", theme) == 0){//A5 
-    return id+":"+crypto(enonce); 
-  } 
-  if(strcmp("swipe", theme) == 0){//A6 
-    swipe(); 
-    return id+":"+enonce; 
-  } 
-  if(strcmp("spydj", theme) == 0){//A7 
-    return id+":"+spydj(enonce, key); 
-  } 
-  if(strcmp("ble", theme) == 0){//A8 
-    ble(); 
-    return id+":"+enonce; 
-  } 
-  if(strcmp("magnéton", theme) == 0){//A9 
-    porte = magneton(); 
-    return id+":"+porte; 
-  } 
-  if(strcmp("memory", theme) == 0){//A10 
-    return id+":"+memory(enonce); 
-  } 
-  if(strcmp("victoire", theme) == 0){//11 
-    victoire(); 
-  } 
-  default: 
-    Serial.print("ERROR, unknown theme!"); 
+/*
+    Parser for the data received by the NFC reader.
+*/
+
+const char* parsing(char *rawdata){ 
+    const static String sep(":");
+
+    int i = 0;
+    String args[4];
+    char *token;
+    String ret;
+
+    // Parsing data
+    token = strtok(rawdata, sep.c_str()); 
+    do{
+        args[i] = String(token);
+        i++;
+    }while((token = strtok(NULL, sep.c_str())));
+
+
+    Serial.println("--- DEBUG(parser.ino) ---");
+    Serial.println(args[0]);
+    Serial.println(args[1]);
+    Serial.println(args[2]);
+    Serial.println(args[3]);
+
+
+    // Selecting which enigma to solve
+    ret = String(args[0] + sep);
+    if(strcmp("circuit", args[1].c_str()) == 0){//A2 
+        circuit(); 
+        return ret + enonce; 
+    } 
+    else if(strcmp("dj", args[1].c_str()) == 0){//A3 
+        dj(); 
+        return ret + enonce; 
+    } 
+    else if(strcmp("360", args[1].c_str()) == 0){//A4 
+        360(); 
+        return ret + enonce; 
+    } 
+    else if(strcmp("crypto", args[1].c_str()) == 0){//A5 
+        return ret + crypto(enonce); 
+    } 
+    else if(strcmp("swipe", args[1].c_str()) == 0){//A6 
+        swipe(); 
+        return ret + enonce; 
+    } 
+    else if(strcmp("spydj", args[1].c_str()) == 0){//A7 
+        return ret + spydj(enonce, key); 
+    } 
+    else if(strcmp("ble", args[1].c_str()) == 0){//A8 
+        ble(); 
+        return ret + enonce; 
+    } 
+    else if(strcmp("magnéton", args[1].c_str()) == 0){//A9 
+        porte = magneton(); 
+        return ret + porte; 
+    } 
+    else if(strcmp("memory", args[1].c_str()) == 0){//A10 
+        return ret + memory(enonce); 
+    } 
+    else if(strcmp("victoire", args[1].c_str()) == 0){//11 
+        Serial.println("Victory!");
+        victory(); /* Never returning function ? */
+    } 
+    else{
+        Serial.println("Error: unknown enigma!");
+        return NULL;
+    }
+
+    return ret.c_str();
 } 
