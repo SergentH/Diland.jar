@@ -58,8 +58,13 @@ const char* parsing(char *rawdata){
         victory(); /* Never returning function ? */
     } 
     else{
-        Serial.println("Error: unknown enigma!");
-        return NULL;
+        if(strcmp("G9375V72", args[1]) == 0){
+            ret += "Hello 24h du code!";
+        }
+        else{
+            Serial.println("Error: unknown enigma!");
+            return NULL;
+        }
     }
     Serial.print("Envoie au serveur de :");
     Serial.println(ret);
