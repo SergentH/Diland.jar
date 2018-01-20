@@ -6,12 +6,6 @@
 SPIClass SPI_3(PC12, PC11, PC10);
 WiFiClass WiFi(&SPI_3, PE0, PE1, PE8, PB13);
 
-WiFiClient wifiClient;
-char ssid[] = "24HDUCODE";
-char pass[] = "2018#24hcode!";
-int status = WL_IDLE_STATUS;
-PubSubClient client("24hducode.spc5studio.com", 1883, callback, wifiClient);
-
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
@@ -21,6 +15,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 }
+
+WiFiClient wifiClient;
+char ssid[] = "24HDUCODE";
+char pass[] = "2018#24hcode!";
+int status = WL_IDLE_STATUS;
+PubSubClient client("24hducode.spc5studio.com", 1883, callback, wifiClient);
+
+
 
 void setup_wifi()
 {
@@ -49,7 +51,7 @@ void setup_wifi()
       Serial.println("Publish failed");
     }
 
-    if (client.subscribe("24hcode/teamF/284k0/broker2device")) {
+    if(client.subscribe("24hcode/teamF/284k0/broker2device")) {
       Serial.println("Subscribe ok");
     }
     else {
@@ -63,6 +65,17 @@ void setup_wifi()
     abort();
   }
 
+}
+
+
+void send_message(const char* message)
+{
+  if (client.publish("24hcode/teamF/284k0/device2broker",message)) {
+      Serial.println("Publish ok");
+    }
+    else {
+      Serial.println("Publish failed");
+    }
 }
 
 void loop_wifi(){
