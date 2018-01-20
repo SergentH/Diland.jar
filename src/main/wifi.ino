@@ -27,11 +27,14 @@ char* return_response()
   return buf;
 }
 
+void clear_response(){
+   memset (buf, 0, sizeof (buf));
+}
+
 
 WiFiClient wifiClient;
 char ssid[] = "24HDUCODE";
 char pass[] = "2018#24hcode!";
-int status = WL_IDLE_STATUS;
 PubSubClient client("24hducode.spc5studio.com", 1883, callback, wifiClient);
 
 void setup_wifi()
