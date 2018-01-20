@@ -34,7 +34,7 @@ const char* parsing(char *rawdata){
         return ret + dj(args[2]); 
     } 
     else if(strcmp("360", args[1].c_str()) == 0){//A4 
-        return ret + 360(args[2]); 
+        return ret + trisixti(args[2]); 
     } 
     else if(strcmp("crypto", args[1].c_str()) == 0){//A5 
         return ret + crypto(args[2]); 

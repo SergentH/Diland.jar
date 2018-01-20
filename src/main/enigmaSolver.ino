@@ -1,24 +1,20 @@
-void circuit(){
+void circuit(String enonce){
   
 }
 
-void dj(){
+void dj(String enonce){
   
 }
 
-void 360(){
+void trisixti(String enonce){
   
 }
 
-void swipe(){
+void swipe(String enonce){
   
 }
 
 String crypto(String enonce){
-  
-}
-
-void swipe(){
   
 }
 
