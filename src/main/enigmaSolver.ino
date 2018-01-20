@@ -1,28 +1,31 @@
-void circuit(){
-  
+String memory(String enonce){
 }
 
-void dj(){
-  
+String ble(String ble){
 }
 
-void 360(){
-  
+String dj(String enonce){
 }
 
-void swipe(){
-  
+String rotate(String enonce){
+}
+
+String swipe(String enonce){
 }
 
 String crypto(String enonce){
-  
 }
 
-void swipe(){
-  
+String spydj(String enonce, String key){
 }
 
-void spydj(String enonce, String key){
+String magneton(String enonce){
+}
 
+void victory(){
+  /* Never returning function ? */
+  while(1){
+    Serial.println("We are the champions... my frieeends, but will keep on fighting 'till the end...");
+  }
 }
 
