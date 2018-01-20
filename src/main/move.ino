@@ -25,15 +25,15 @@ void stop(){
 
 boolean ligneG(){
   int detG = digitalRead(suivG);
-  Serial.print("Gauche :");
-  Serial.println(detG, DEC);
+  //Serial.print("Gauche :");
+  //Serial.println(detG, DEC);
   return detG;
 }
 
 boolean ligneD(){
     int detD = digitalRead(suivD);
-  Serial.print("Doite :");
-  Serial.println(detD, DEC);
+  //Serial.print("Doite :");
+  //Serial.println(detD, DEC);
   return detD;
 }
 
@@ -43,13 +43,13 @@ void follow(int vitesse){
   int vitD = vitesse;
   
   if(ligneG()){
-    vitG=-vitesse*1.2;
-    vitD=vitesse*1.4;
-  }
+    vitG=-vitesse*1.3;
+    vitD=vitesse;
+  } 
   
   if(ligneD()){
-    vitG=vitesse*1.2;
-    vitD=-vitesse*1.4;
+    vitG=vitesse*1.3;
+    vitD=-vitesse;
   }
 
   if(ligneG() and ligneD()){
@@ -58,6 +58,7 @@ void follow(int vitesse){
   }
   move(vitG,vitD);
 }
+
 
 
 
