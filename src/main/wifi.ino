@@ -7,9 +7,9 @@ SPIClass SPI_3(PC12, PC11, PC10);
 WiFiClass WiFi(&SPI_3, PE0, PE1, PE8, PB13);
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
+  /*Serial.print("Message arrived [");
   Serial.print(topic);
-  Serial.print("] ");
+  Serial.print("] ");*/
   for (int i=0;i<length;i++) {
     Serial.print((char)payload[i]);
   }
@@ -43,14 +43,16 @@ void setup_wifi()
   
   if (client.connect("teamF","Aspicot", "G9375V72")) {
     Serial.println("Connected to MQTT broker");
-    
+
+    /*
     if (client.publish("24hcode/teamF/284k0/device2broker","Hello from Aspicot")) {
       Serial.println("Publish ok");
     }
     else {
       Serial.println("Publish failed");
     }
-
+    */
+    
     if(client.subscribe("24hcode/teamF/284k0/broker2device")) {
       Serial.println("Subscribe ok");
     }
@@ -79,6 +81,7 @@ void send_message(const char* message)
 }
 
 void loop_wifi(){
+  Serial.println("loop");
   client.loop();
 }
 
