@@ -19,6 +19,10 @@ void move(int vitG, int vitD){
   servoD.write(cmdD);
 }
 
+void stop(){
+  move(0,0);
+}
+
 boolean ligneG(){
   int detG = digitalRead(suivG);
   Serial.print("Gauche :");

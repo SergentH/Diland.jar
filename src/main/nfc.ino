@@ -119,6 +119,8 @@ static char dataOut[256];
 #define X_NUCLEO_NFC03A1_LED3 A4
 //#define X_NUCLEO_NFC03A1_LED4 D4
 
+char* nfc_data;
+
 void setup_nfc() {
   // 95HF HW Init
   ConfigManager_HWInit();
@@ -149,7 +151,19 @@ void setup_nfc() {
 
 /* Loop ----------------------------------------------------------------------*/
 
-char* loop_nfc()
+int statusNFC(){
+  int led3 = digitalRead(X_NUCLEO_NFC03A1_LED3);
+  int led2 = digitalRead(X_NUCLEO_NFC03A1_LED2);
+  if(led3){
+    return 3;
+  }
+  if(led2){
+    return 2;
+  }
+  return 0;
+}
+
+void loop_nfc()
 {
   devicemode = PCD;
     
@@ -311,10 +325,14 @@ char* loop_nfc()
               
             SerialPort.print( dataOut );
             digitalWrite(X_NUCLEO_NFC03A1_LED3, HIGH);
-            return url.URI_Message;
+            nfc_data = url.URI_Message;
           }
         }
       }
-  }
-  return ""; 
+  } 
 }
+
+char* getNfcData(){
+  return nfc_data;
+}
+
