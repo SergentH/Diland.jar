@@ -34,10 +34,17 @@ void loop() {
   
   Serial.print("Enigme : ");
   Serial.println(getNfcData());
-  loop_wifi();
-  response = return_response();
-  Serial.println(response);
   
+  send_message(parsing(getNfcData()));
+  while(response!="OK"){
+    loop_wifi();
+    response = return_response();
+    Serial.print("Réponce serveur : ");
+    Serial.println(response);
+  }
+  clear_response();
+  response="null";
+
   Serial.println("Quitte le NFC");
   while(statusNFC()!=0){
     loop_nfc();

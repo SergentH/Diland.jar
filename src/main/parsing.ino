@@ -1,7 +1,7 @@
 /*
     Parser for the data received by the NFC reader.
 */
-
+/*
 const char* parsing(char *rawdata){ 
     const static String sep(":");
 
@@ -59,11 +59,11 @@ const char* parsing(char *rawdata){
     else if(strcmp("victoire", args[1].c_str()) == 0){//11 
         Serial.println("Victory!");
         victory(); /* Never returning function ? */
-    } 
+   /* } 
     else{
         Serial.println("Error: unknown enigma!");
         return NULL;
     }
 
     return ret.c_str();
-} 
+} */
