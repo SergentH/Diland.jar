@@ -28,37 +28,33 @@ const char* parsing(char *rawdata){
     // Selecting which enigma to solve
     ret = String(args[0] + sep);
     if(strcmp("circuit", args[1].c_str()) == 0){//A2 
-        circuit(); 
-        return ret + enonce; 
+        return ret + args[2]; 
     } 
     else if(strcmp("dj", args[1].c_str()) == 0){//A3 
-        dj(); 
-        return ret + enonce; 
+        return ret + dj(args[2]); 
     } 
     else if(strcmp("360", args[1].c_str()) == 0){//A4 
-        360(); 
-        return ret + enonce; 
+        return ret + 360(args[2]); 
     } 
     else if(strcmp("crypto", args[1].c_str()) == 0){//A5 
-        return ret + crypto(enonce); 
+        return ret + crypto(args[2]); 
     } 
     else if(strcmp("swipe", args[1].c_str()) == 0){//A6 
         swipe(); 
-        return ret + enonce; 
+        return ret + swipe(args[2]); 
     } 
     else if(strcmp("spydj", args[1].c_str()) == 0){//A7 
-        return ret + spydj(enonce, key); 
+        return ret + spydj(args[2], args[3]); 
     } 
     else if(strcmp("ble", args[1].c_str()) == 0){//A8 
         ble(); 
-        return ret + enonce; 
+        return ret + ble(args[2]); 
     } 
     else if(strcmp("magnéton", args[1].c_str()) == 0){//A9 
-        porte = magneton(); 
-        return ret + porte; 
+        return ret + magneton(args[2]); 
     } 
     else if(strcmp("memory", args[1].c_str()) == 0){//A10 
-        return ret + memory(enonce); 
+        return ret + memory(args[2]); 
     } 
     else if(strcmp("victoire", args[1].c_str()) == 0){//11 
         Serial.println("Victory!");
