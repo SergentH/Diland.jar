@@ -22,7 +22,7 @@ void swipe(){
   
 }
 
-void spydj(enonce, key){
+void spydj(String enonce, String key){
 
 }
 
