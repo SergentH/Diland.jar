@@ -6,16 +6,16 @@
 SPIClass SPI_3(PC12, PC11, PC10);
 WiFiClass WiFi(&SPI_3, PE0, PE1, PE8, PB13);
 
-WiFiClient ethClient;
+WiFiClient wifiClient;
 char ssid[] = "24HDUCODE";
 char pass[] = "2018#24hcode!";
 uint8_t http[1024];               // http buffer to send
 int status = WL_IDLE_STATUS;
 
 
-PubSubClient client("24hducode.spc5studio.com", 1883, callback, ethClient);
+//PubSubClient client("24hducode.spc5studio.com", 1883, callback, wifiClient);
 
-
+PubSubClient client(wifiClient);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -46,19 +46,27 @@ void setup_wifi()
     delay(10000);
   }
   printWifiStatus();                        // you're connected now, so print out the status
-
-  Serial.print("Wifi ok");
-
-  if (client.connect("teamF")) {
-    Serial.print("tentative d'envoi");
-    client.publish("24hcode/teamF/284k0/device2broker","Hello from Aspicot");
-    client.subscribe("24hcode/teamF/284k0/broker2device");
+  Serial.println("Wifi ok");
+  client.setServer("24hducode.spc5studio.com", 1883);
+  //client.setCallback(callback);
+  while(client.connected()==0) {
+    Serial.println("Tentative connexion");
+    client.connect("teamF","Aspicot", "G9375V72");
   }
+  Serial.println("Connected to brocker");
+  Serial.println(client.connected());
+  Serial.println("tentative d'envoi");
+  do{
+    Serial.println("Sending to brocker"); 
+  }while(client.publish("24hcode/teamF/284k0/device2broker","Hello from Aspicot")==0);
+
+  Serial.println("Published done");
+  client.subscribe("24hcode/teamF/284k0/broker2device");
 }
 
 void loop_wifi()
 {
-  client.loop();
+  //client.loop();
 }
 
 
