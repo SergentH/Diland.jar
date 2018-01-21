@@ -5,12 +5,12 @@ void victory(){
   digitalWrite(A2, HIGH);
   digitalWrite(A3, HIGH);
   digitalWrite(A4, HIGH);
+  /*
   //Play first section
-  firstSection();
+  //firstSection();
  
   //Play second section
-  secondSection();
- 
+  //secondSection();
   //Variant 1
   beep(f, 250); 
   digitalWrite(A2, HIGH); 
@@ -56,6 +56,7 @@ void victory(){
   delay(650);
   move (0,0); 
 }
+}
  
 void beep(int note, int duration)
 {
@@ -83,7 +84,7 @@ void beep(int note, int duration)
   //Increment counter
   counter++;
 }
- 
+ /*
 void firstSection()
 {
   beep(a, 500);
@@ -133,6 +134,7 @@ void secondSection()
   beep(b, 125);  
   beep(cH, 250);  
  
-  delay(350);
+  delay(350);*/
+  }
 }
 

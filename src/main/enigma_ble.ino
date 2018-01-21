@@ -1,6 +1,6 @@
 String ble(String ble){
    move(8,8);//move to middle
-   delay(2000);
+   delay(1100);
    stop();
   bool buttonLow = true;
   while(buttonLow) {
@@ -9,30 +9,32 @@ String ble(String ble){
     int delayRotate=1000;
     int potValue = analogRead(A0);
     
-    if(potValue < 10){
+    if(potValue < 30){
       digitalWrite(A2, HIGH);
       digitalWrite(A3, LOW);
       digitalWrite(A4, LOW);
       if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
-        rotate90L(speedRotate,delayRotate);
+        rot90(0);
+        move(8,8);
         buttonLow = false;
       } 
     }
-    else if (potValue >=10 && potValue <20){
+    else if (potValue >=30 && potValue <60){
       digitalWrite(A2, LOW);
       digitalWrite(A3, HIGH);
       digitalWrite(A4, LOW);
       if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
-       move(70,70);
+       move(8,8);
        buttonLow = false;
       } 
     }
-    else if (potValue >=20 && potValue <30){
+    else if (potValue >=60 && potValue <90){
       digitalWrite(A2, LOW);
       digitalWrite(A3, LOW);
       digitalWrite(A4, HIGH);
       if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
-         rotate90R(speedRotate,delayRotate);
+         rot90(1);
+         move(8,8);
          buttonLow = false;
       } 
     }
@@ -45,14 +47,7 @@ String ble(String ble){
       }       
     }
   }
-}
-void rotate90R(int speedRotate, int delayRotate){
-  move(speedRotate,-speedRotate);
-  delay(delayRotate);
-}
-void rotate90L(int speedRotate, int delayRotate){
-  move(-speedRotate,speedRotate);
-  delay(delayRotate);
+  return ble;
 }
 
 

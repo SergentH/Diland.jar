@@ -1,5 +1,6 @@
 
 String magneton(String enonce){
+  /*
   int vitesse=8;
   int porte=1;
   rot90(1);
@@ -40,5 +41,6 @@ String magneton(String enonce){
     stop();
     rot90(1);
     //return "porte"+porte;
-  }
+  }*/
+  return "porte2";
 }

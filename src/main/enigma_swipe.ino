@@ -3,8 +3,7 @@ int buttonState = 0;         // variable for reading the pushbutton status
 
 
 String swipe(String enonce) {
-  String retourner = "";
-  retourner.concat(enonce);
+
 
   int NbToDo;
   int compteur = 0;
@@ -23,6 +22,6 @@ String swipe(String enonce) {
 
     delay(200);
   }
-  return retourner;
+  return enonce;
 }
 

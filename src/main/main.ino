@@ -21,6 +21,7 @@ void setup() {
   pinMode(BTN1, INPUT_PULLUP);
   
   while(digitalRead(BTN2) != LOW);
+  send_message("A1:Hello 24h du code!");
 }
 
 String response;
@@ -51,7 +52,7 @@ void loop() {
   delay(187);
   tone(PIN_BUZZER, 466, 167);
   
-  //waitResponseServer();
+  waitResponseServer();
 
   Serial.println("Quitte le NFC");
   while(statusNFC()!=0){
