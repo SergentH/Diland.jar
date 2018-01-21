@@ -52,7 +52,9 @@ void setup_wifi()
     Serial.print(".");
   }
   
-  Serial.println("Wifi ok");
+  Serial.print("Wifi ok :");
+  Serial.println(WiFi.localIP());
+  
   
   if (client.connect("teamF","Aspicot", "G9375V72")) {
     Serial.println("Connected to MQTT broker");

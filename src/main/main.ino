@@ -1,6 +1,28 @@
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+#include <SPI.h>
+
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE};
+IPAddress ip(192, 168, 40, 101);
+unsigned int localPort = 5000;
+char pcktBuffer[UDP_TX_PACKET_MAX_SIZE];
+String datReq;
+int packetSize;
+EthernetUDP udp;
 
 int vitesse = 8;
 int PIN_BUZZER =A5;
+
+void loop_eth(){
+  packetSize = udp.parsePacket();
+  if(packetSize > 0){
+    udp.read(pcktBuffer, UDP_TX_PACKET_MAX_SIZE);
+    String datReq(pcktBuffer);
+
+    Serial.println("Received " + datReq);
+  }
+  memset(pcktBuffer, 0, UDP_TX_PACKET_MAX_SIZE);
+}
 
 void setup() {
   Serial.begin(115200);
@@ -10,13 +32,14 @@ void setup() {
   setup_move();
   
   pinMode(PIN_BUZZER,OUTPUT);
-  
+  Ethernet.begin(mac, ip);
+  delay(1500);
 }
 
 String response;
 
 void loop() {
-  
+  loop_eth();
   Serial.println("Avance jusqu'au NFC");
   while(statusNFC()==0){ //Avance jusqu'au NFC
     follow(vitesse);
