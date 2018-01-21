@@ -42,7 +42,7 @@ const char* parsing(char *rawdata){
         ret += swipe(args[2]);  
     } 
     else if(strcmp("spydj", args[1].c_str()) == 0){//A7 
-        ret += spydj(args[2], args[3]); 
+        ret += spydj(args[2]); 
     } 
     else if(strcmp("ble", args[1].c_str()) == 0){//A8 
         ret += ble(args[2]); 

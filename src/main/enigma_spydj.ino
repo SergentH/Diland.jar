@@ -1,10 +1,11 @@
 String spydj(String strEnonce){//A7
-  const char* enonce =strMusic.c_str();
+  Serial.println("Début enigne spyDj");
+  const char* music =strEnonce.c_str();
   int note;
   int delayB = 187, timeB = 167;
-  String partition = null;//init at the beginning
+  String partition;//init at the beginning
   for (int k=0; k<strlen(music);k++){
-    switch (enonce[k]) {
+    switch (music[k]) {
       case 'P': partition+="C";
           tone(PIN_BUZZER, 262,timeB);
           delay(timeB);
@@ -210,5 +211,7 @@ String spydj(String strEnonce){//A7
       default:Serial.print("!!!!!!!!!!!!Error in note !!!!!!!!!!!!\n");
     }
   }
+  Serial.println("Fin enigne spyDj");
+  return partition;
 }
 //END

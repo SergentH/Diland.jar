@@ -1,7 +1,7 @@
 String rotate(String enonce){
   int tempsTour = 1100;
   boolean flip=true;
-  int vitesse;
+  int vitesse = 30;
   int nbTour=0;
   int taille = strlen(enonce.c_str());
   const char* data = enonce.c_str();
@@ -9,7 +9,7 @@ String rotate(String enonce){
   Serial.println("Début enigme rotate");
    //Un seul coté
   if(data[1]=='C'){ //CCWn
-      move(-50,50);
+      move(-vitesse,vitesse);
       Serial.print(atoi(&data[3]));
       Serial.print(" tour en CCW");
       while(nbTour<=2*atoi(&data[3])){
@@ -28,7 +28,7 @@ String rotate(String enonce){
   }else{ //CWn
       Serial.print(atoi(&data[2]));
       Serial.println(" tour en CW");
-      move(50,-50);
+      move(vitesse,-vitesse);
       while(nbTour<=2*atoi(&data[2])){
         if(ligneG==false){
           flip=true;
@@ -43,13 +43,15 @@ String rotate(String enonce){
         delay(tempsTour);
       }*/
   }
+  move(0,0);
+  delay(250);
   nbTour=0;
   if(taille>=5){//double rotation
     Serial.println("Deux sens");
     if(data[taille-4]=='C'){ //CCWn
         Serial.print(atoi(&data[taille-1]));
         Serial.print(" tour en CCW");
-        move(-50,50);
+        move(-vitesse,vitesse);
         while(nbTour<=2*atoi(&data[taille-1])){
            if(ligneD()==false){
             flip=true;
@@ -68,7 +70,7 @@ String rotate(String enonce){
     }else{ //CWn
         Serial.print(atoi(&data[taille-1]));
         Serial.println(" tour en CW");
-        move(50,-50);
+        move(vitesse,-vitesse);
         while(nbTour<=2*atoi(&data[taille-1])){
           if(ligneG()==false){
             flip=true;

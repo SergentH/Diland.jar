@@ -37,7 +37,7 @@ void loop() {
   
   send_message(parsing(getNfcData()));
 
-  waitResponseServer();
+  //waitResponseServer();
 
   Serial.println("Quitte le NFC");
   while(statusNFC()!=0){
