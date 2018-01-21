@@ -17,6 +17,9 @@ String swipe(String enonce) {
     buttonState = digitalRead(BTN2);
     if (buttonState == LOW) {
       compteur++;
+        tone(PIN_BUZZER, 370, 167);
+        delay(187);
+        tone(PIN_BUZZER, 392, 167);
       Serial.println(compteur);
     }
 

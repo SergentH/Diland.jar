@@ -15,7 +15,7 @@ void setup_magnetometre(){
 boolean havePorte(){
   int32_t magnetometer[3];
   Magneto->GetAxes(magnetometer);
-    if(magnetometer[1]>200 or magnetometer[2]>200){
+    if(magnetometer[1]>250 or magnetometer[2]>250){
       return true;
   }else{
     return false;

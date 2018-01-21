@@ -52,7 +52,7 @@ void loop() {
   delay(187);
   tone(PIN_BUZZER, 466, 167);
   
-  waitResponseServer();
+  //waitResponseServer();
 
   Serial.println("Quitte le NFC");
   while(statusNFC()!=0){

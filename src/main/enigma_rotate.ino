@@ -52,7 +52,7 @@ String rotate(String enonce){
         Serial.print(atoi(&data[taille-1]));
         Serial.print(" tour en CCW");
         move(-vitesse,vitesse);
-        while(nbTour<=2*atoi(&data[taille-1])){
+        while(nbTour<2*atoi(&data[taille-1])){
            if(ligneD()==false){
             flip=true;
             }
@@ -89,6 +89,8 @@ String rotate(String enonce){
     }
 
   }
+  move(8,8);
+  delay(200);
   Serial.println("Fin tour");
 
   return enonce;

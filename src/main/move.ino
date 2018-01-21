@@ -61,8 +61,8 @@ void follow(int vitesse){
 
 void rot90(int sens){
   if(sens==0){//gauche
-    move(-8,8);
-    delay(1000);
+    move(-12,8);
+    delay(1200);
     stop();
   }else{
     move(8,-8);
