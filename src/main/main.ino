@@ -8,7 +8,7 @@ void setup() {
   setup_wifi();
   setup_nfc();
   setup_move();
-  
+  setup_magnetometre();
   pinMode(PIN_BUZZER,OUTPUT);
   
 }

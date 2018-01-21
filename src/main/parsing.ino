@@ -47,7 +47,7 @@ const char* parsing(char *rawdata){
     else if(strcmp("ble", args[1].c_str()) == 0){//A8 
         ret += ble(args[2]); 
     } 
-    else if(strcmp("magnéton", args[1].c_str()) == 0){//A9 
+    else if(strcmp("magneton", args[1].c_str()) == 0){//A9 
         ret += magneton(args[2]); 
     } 
     else if(strcmp("memory", args[1].c_str()) == 0){//A10 
