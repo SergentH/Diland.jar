@@ -1,6 +1,6 @@
 
 int vitesse = 8;
-int buzzer =5;
+int PIN_BUZZER =A5;
 
 void setup() {
   Serial.begin(115200);
@@ -9,7 +9,7 @@ void setup() {
   setup_nfc();
   setup_move();
   
-  pinMode(buzzer,OUTPUT);
+  pinMode(PIN_BUZZER,OUTPUT);
   
 }
 

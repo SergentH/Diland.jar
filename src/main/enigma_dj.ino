@@ -1,4 +1,4 @@
-void dj(String strMusic){//A3 A valider
+String dj(String strMusic){//A3 A valider
   const char* music =strMusic.c_str();
   int note;
   for (int k=0; k<strlen(music);k++){
@@ -67,4 +67,5 @@ void dj(String strMusic){//A3 A valider
     tone(PIN_BUZZER, note,167);
     delay(187);//loose time at the last, minor problem
   }
+  return strMusic;
 }
