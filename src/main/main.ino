@@ -10,11 +10,12 @@ void setup() {
   setup_wifi();
   setup_nfc();
   setup_move();
+  setup_magnetometre();
   
   tone(PIN_BUZZER, 370, 167);
   delay(187);
   tone(PIN_BUZZER, 392, 167);
-
+  
   pinMode(PIN_BUZZER,OUTPUT);
   pinMode(BTN2, INPUT_PULLUP);
   
@@ -57,3 +58,5 @@ void loop() {
     follow(vitesse);
   }
 }
+
+
