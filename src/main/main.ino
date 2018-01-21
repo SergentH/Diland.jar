@@ -1,6 +1,6 @@
-#include <Ethernet.h>
-#include <EthernetUdp.h>
-#include <SPI.h>
+//#include <WiFi.h>
+#include <WiFiUdp.h>
+//#include <SPI.h>
 
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE};
 IPAddress ip(192, 168, 40, 101);
@@ -8,7 +8,7 @@ unsigned int localPort = 5000;
 char pcktBuffer[UDP_TX_PACKET_MAX_SIZE];
 String datReq;
 int packetSize;
-EthernetUDP udp;
+WiFiUDP udp;
 
 int vitesse = 8;
 int PIN_BUZZER =A5;
@@ -32,8 +32,9 @@ void setup() {
   setup_move();
   
   pinMode(PIN_BUZZER,OUTPUT);
-  Ethernet.begin(mac, ip);
-  delay(1500);
+  udp.beginPacket(udp.remoteIP(), udp.remotePort());
+  udp.print("Yo");
+  udp.endPacket();
 }
 
 String response;
