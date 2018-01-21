@@ -28,21 +28,33 @@ void victory(){
   beep(eH, 650);
  
   delay(500);
+  move (50,50);
+  delay(1000);
+  move(0,0);
  
   //Repeat second section
   secondSection();
- 
+   delay(1000);
+  move(0,0);
   //Variant 2
-  beep(f, 250);  
+  beep(f, 250); 
+  digitalWrite(A4, HIGH);  
   beep(gS, 500);  
+  digitalWrite(A4, LOW); 
+  beep(f, 375);
+  move (70,70);  
+  beep(cH, 125);
+  digitalWrite(A4, HIGH); 
+  beep(a, 500);
+  move (0,0);
+  digitalWrite(A4, LOW); 
   beep(f, 375);  
   beep(cH, 125);
-  beep(a, 500);  
-  beep(f, 375);  
-  beep(cH, 125);
+  move (-70,-70); 
   beep(a, 650);  
  
   delay(650);
+  move (0,0); 
 }
  
 void beep(int note, int duration)
