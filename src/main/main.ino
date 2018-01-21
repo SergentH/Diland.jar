@@ -16,9 +16,9 @@ void setup() {
   tone(PIN_BUZZER, 392, 167);
 
   pinMode(PIN_BUZZER,OUTPUT);
-  pinMode(BTN1, INPUT);
+  pinMode(BTN2, INPUT_PULLUP);
   
-  while(digitalRead(BTN1) != HIGH);
+  while(digitalRead(BTN2) != LOW);
 }
 
 String response;
