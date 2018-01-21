@@ -1,6 +1,8 @@
 
 int vitesse = 8;
 int PIN_BUZZER =A5;
+int BTN1 = A1;
+int BTN2 = 2;
 
 void setup() {
   Serial.begin(115200);
@@ -9,8 +11,14 @@ void setup() {
   setup_nfc();
   setup_move();
   
+  tone(PIN_BUZZER, 370, 167);
+  delay(187);
+  tone(PIN_BUZZER, 392, 167);
+
   pinMode(PIN_BUZZER,OUTPUT);
+  pinMode(BTN1, INPUT);
   
+  while(digitalRead(BTN1) != HIGH);
 }
 
 String response;
@@ -28,15 +36,19 @@ void loop() {
     loop_nfc();
   }
 
-  //analogWrite(buzzer,300);
-  //delay(100);// Attendre 10ms
-  //analogWrite(buzzer,0);
+  tone(PIN_BUZZER, 370, 167);
+    delay(187);
+  tone(PIN_BUZZER, 262, 167);
   
   Serial.print("Enigme : ");
   Serial.println(getNfcData());
   
   send_message(parsing(getNfcData()));
-
+  
+  tone(PIN_BUZZER, 392, 167);
+  delay(187);
+  tone(PIN_BUZZER, 466, 167);
+  
   //waitResponseServer();
 
   Serial.println("Quitte le NFC");
