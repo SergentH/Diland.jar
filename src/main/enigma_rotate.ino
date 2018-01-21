@@ -60,9 +60,11 @@ String rotate(String enonce){
             flip=false;
           }
         }
-        /*for(int i=0; i<atoi(&data[taille-1]);i++){
-          delay(tempsTour);
-        }*/
+      move(0,0);
+      while(ligneG()==false){
+       move(50,-50);
+      }
+      move(0,0);
     }else{ //CWn
         Serial.print(atoi(&data[taille-1]));
         Serial.println(" tour en CW");
@@ -77,12 +79,14 @@ String rotate(String enonce){
             flip=false;
           }
         }
-        /*for(int i=0; i<atoi(&data[taille-1]);i++){
-          delay(tempsTour);
-        }*/
+     move(0,0);
+     while(ligneD()==false){
+       move(-50,50);
+      }
+    move(0,0);
     }
+
   }
-  move(0,0);
   Serial.println("Fin tour");
 
   return enonce;
