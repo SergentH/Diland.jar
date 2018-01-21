@@ -18,6 +18,7 @@ void setup() {
   
   pinMode(PIN_BUZZER,OUTPUT);
   pinMode(BTN2, INPUT_PULLUP);
+  pinMode(BTN1, INPUT_PULLUP);
   
   while(digitalRead(BTN2) != LOW);
 }

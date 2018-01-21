@@ -1,5 +1,5 @@
 String ble(String ble){
-   move(70,70);//move to middle
+   move(8,8);//move to middle
    delay(2000);
    stop();
   bool buttonLow = true;
@@ -13,7 +13,7 @@ String ble(String ble){
       digitalWrite(A2, HIGH);
       digitalWrite(A3, LOW);
       digitalWrite(A4, LOW);
-      if(digitalRead(A1) == HIGH ||digitalRead(D2) == HIGH){
+      if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
         rotate90L(speedRotate,delayRotate);
         buttonLow = false;
       } 
@@ -22,7 +22,7 @@ String ble(String ble){
       digitalWrite(A2, LOW);
       digitalWrite(A3, HIGH);
       digitalWrite(A4, LOW);
-      if(digitalRead(A1) == HIGH ||digitalRead(D2) == HIGH){
+      if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
        move(70,70);
        buttonLow = false;
       } 
@@ -31,7 +31,7 @@ String ble(String ble){
       digitalWrite(A2, LOW);
       digitalWrite(A3, LOW);
       digitalWrite(A4, HIGH);
-      if(digitalRead(A1) == HIGH ||digitalRead(D2) == HIGH){
+      if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
          rotate90R(speedRotate,delayRotate);
          buttonLow = false;
       } 
@@ -40,7 +40,7 @@ String ble(String ble){
       digitalWrite(A2, LOW);
       digitalWrite(A3, LOW);
       digitalWrite(A4, LOW);
-      if(digitalRead(A1) == HIGH ||digitalRead(D2) == HIGH){
+      if(digitalRead(BTN1) == LOW ||digitalRead(BTN2) == LOW){
         move(-10,-10);
       }       
     }
