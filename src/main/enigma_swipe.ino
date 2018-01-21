@@ -4,7 +4,7 @@ int buttonState = 0;         // variable for reading the pushbutton status
 
 void setup_swipe()
 {
-  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
 
 }
 
@@ -20,7 +20,7 @@ String swipe(String enonce) {
   NbToDo = enonce.toInt();
   Serial.println(NbToDo);
 
-  while (compteur < 6)
+  while (compteur < 5)
   {
     // read the state of the pushbutton value:
     buttonState = digitalRead(buttonPin);
@@ -28,6 +28,8 @@ String swipe(String enonce) {
       compteur++;
       Serial.println(compteur);
     }
+
+    delay(200);
   }
   return retourner;
 }
